@@ -4,7 +4,7 @@ from melo.api import TTS
 import numpy as np
 import librosa
 import gradio as gr
-from gradio_webrtc import WebRTC, ReplyOnPause, AdditionalOutputs
+from gradio_webrtc import WebRTC, StreamHandler, AdditionalOutputs
 
 llm, tokenizer = load("mlx-community/SmolLM-360M-Instruct")
 
@@ -25,7 +25,7 @@ def generate_llm(prompt: str, messages: list[dict]):
     messages.append({"role": "user", "content": prompt})
     prompt = tokenizer.apply_chat_template(messages, tokenize=False, add_generation_prompt=True)
     print("prompt:", prompt)
-    response = generate(llm, tokenizer, prompt, max_tokens=256)
+    response = generate(llm, tokenizer, prompt, max_tokens=128)
     messages.append({"role": "assistant", "content": response})
     print("response:", response)
     return response, messages

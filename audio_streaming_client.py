@@ -180,6 +180,8 @@ if __name__ == "__main__":
     )
 
     args = parser.parse_args()
+    from huggingface_hub import get_token
+    args.auth_token = get_token()
     client_args = AudioStreamingClientArguments(**vars(args))
     client = AudioStreamingClient(client_args)
     client.start()
